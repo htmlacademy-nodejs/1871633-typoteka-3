@@ -9,12 +9,15 @@ const {
 } = require(`../../utils`);
 const {ExitCode} = require(`../../constants`);
 
-const ERROR_MESSAGE = `Не больше 1000 публикаций`;
-const DEFAULT_COUNT = 1;
-const FILE_NAME = `mocks.json`;
-const MAX_COUNT_POSTS = 1000;
+const Posts = {
+  DEFAULT_COUNT: 1,
+  MAX_COUNT: 1000
+}
+
 const MAX_COUNT_SENTENCES_IN_ANNOUNCE = 5;
 const MONTHS_LIMIT = 3;
+const ERROR_MESSAGE = `Не больше 1000 публикаций`;
+const FILE_NAME = `mocks.json`;
 const TITLES = [
   `Ёлки. История деревьев`,
   `Как перестать беспокоиться и начать жить`,
@@ -51,7 +54,6 @@ const SENTENCES = [
   `Игры и программирование разные вещи. Не стоит идти в программисты, если вам нравятся только игры.`,
   `Альбом стал настоящим открытием года. Мощные гитарные рифы и скоростные соло-партии не дадут заскучать.`,
 ];
-
 const CATEGORIES = [
   `Деревья`,
   `За жизнь`,
@@ -75,8 +77,8 @@ const generatePosts = (count) => (
     title: TITLES[getRandomInt(0, TITLES.length - 1)],
     createdDate: getRandomDate(),
     announce: shuffle(SENTENCES).slice(0, MAX_COUNT_SENTENCES_IN_ANNOUNCE).join(` `),
-    fullText: shuffle(SENTENCES).slice(0, getRandomInt(0, SENTENCES.length - 1)).join(` `),
-    category: shuffle(CATEGORIES).slice(0, getRandomInt(0, CATEGORIES.length - 1)),
+    fullText: shuffle(SENTENCES).slice(0, getRandomInt(1, SENTENCES.length)).join(` `),
+    category: shuffle(CATEGORIES).slice(0, getRandomInt(1, CATEGORIES.length)),
   }))
 );
 
@@ -84,21 +86,21 @@ module.exports = {
   name: `--generate`,
   async run(args) {
     const [count] = args;
-    if (count >= MAX_COUNT_POSTS) {
+    if (count >= Posts.MAX_COUNT) {
       console.log(chalk.red(ERROR_MESSAGE));
-      process.exit(ExitCode.error);
+      process.exit(ExitCode.ERROR);
     }
 
-    const countPosts = Number.parseInt(count, 10) || DEFAULT_COUNT;
+    const countPosts = Number.parseInt(count, 10) || Posts.DEFAULT_COUNT;
     const content = JSON.stringify(generatePosts(countPosts));
 
     try {
       await fs.writeFile(FILE_NAME, content);
       console.info(chalk.green(`Operation success. File created.`));
-      process.exit(ExitCode.success);
+      process.exit(ExitCode.SUCCESS);
     } catch (e) {
       console.error(chalk.red(`Can't write data to file...`));
-      process.exit(ExitCode.error);
+      process.exit(ExitCode.ERROR);
     }
   }
 };
