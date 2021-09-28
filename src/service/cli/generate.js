@@ -55,9 +55,9 @@ module.exports = {
   name: `--generate`,
   async run(args) {
     const data = await Promise.all([
-      readContent(FILE_PATH.TITLES),
-      readContent(FILE_PATH.CATEGORIES),
-      readContent(FILE_PATH.SENTENCES)
+      readContent(FilePath.TITLES),
+      readContent(FilePath.CATEGORIES),
+      readContent(FilePath.SENTENCES)
     ]);
 
     const [count] = args;
