@@ -9,7 +9,7 @@ const {
 } = require(`../../utils`);
 const {ExitCode} = require(`../../constants`);
 
-const FILE_PATH = {
+const FilePath = {
   SENTENCES: `./data/sentences.txt`,
   TITLES: `./data/titles.txt`,
   CATEGORIES: `./data/categories.txt`,
