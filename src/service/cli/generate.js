@@ -9,14 +9,16 @@ const {
 } = require(`../../utils`);
 const {ExitCode} = require(`../../constants`);
 
-const FILE_SENTENCES_PATH = `./data/sentences.txt`;
-const FILE_TITLES_PATH = `./data/titles.txt`;
-const FILE_CATEGORIES_PATH = `./data/categories.txt`;
+const FILE_PATH = {
+  SENTENCES: `./data/sentences.txt`,
+  TITLES: `./data/titles.txt`,
+  CATEGORIES: `./data/categories.txt`,
+};
 
 const Posts = {
   DEFAULT_COUNT: 1,
   MAX_COUNT: 1000
-}
+};
 
 const MAX_COUNT_SENTENCES_IN_ANNOUNCE = 5;
 const MONTHS_LIMIT = 3;
@@ -52,9 +54,11 @@ const generatePosts = (count, titles, categories, sentences) => (
 module.exports = {
   name: `--generate`,
   async run(args) {
-    const titles = await readContent(FILE_TITLES_PATH);
-    const categories = await readContent(FILE_CATEGORIES_PATH);
-    const sentences = await readContent(FILE_SENTENCES_PATH);
+    const data = await Promise.all([
+      readContent(FILE_PATH.TITLES),
+      readContent(FILE_PATH.CATEGORIES),
+      readContent(FILE_PATH.SENTENCES)
+    ]);
 
     const [count] = args;
     if (count >= Posts.MAX_COUNT) {
@@ -63,7 +67,7 @@ module.exports = {
     }
 
     const countPosts = Number.parseInt(count, 10) || Posts.DEFAULT_COUNT;
-    const content = JSON.stringify(generatePosts(countPosts, titles, categories, sentences));
+    const content = JSON.stringify(generatePosts(countPosts, ...data));
 
     try {
       await fs.writeFile(FILE_NAME, content);
