@@ -7,7 +7,7 @@ const {
   getRandomInt,
   shuffle,
 } = require(`../../utils`);
-const {ExitCode} = require(`../../constants`);
+const {ExitCode, FILE_NAME} = require(`../../constants`);
 
 const FilePath = {
   SENTENCES: `./data/sentences.txt`,
@@ -23,7 +23,6 @@ const Posts = {
 const MAX_COUNT_SENTENCES_IN_ANNOUNCE = 5;
 const MONTHS_LIMIT = 3;
 const ERROR_MESSAGE = `Не больше 1000 публикаций`;
-const FILE_NAME = `mocks.json`;
 
 const getRandomDate = () => {
   const currentDate = moment().valueOf();
