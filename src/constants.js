@@ -6,7 +6,7 @@ const USER_ARGV_INDEX = 2;
 const Port = {
   DEFAULT_SERVICE_PORT: 3000,
   DEFAULT_EXPRESS_PORT: 8080,
-}
+};
 const ExitCode = {
   SUCCESS: 0,
   ERROR: 1
