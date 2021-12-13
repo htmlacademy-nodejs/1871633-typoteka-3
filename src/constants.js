@@ -1,7 +1,8 @@
 'use strict';
 
 const DEFAULT_COMMAND = `--help`;
-const FILE_NAME = `mocks.json`;
+const MOCKS_FILE_NAME = `mocks.json`;
+const PUBLIC_DIR = `public`;
 const USER_ARGV_INDEX = 2;
 const Port = {
   DEFAULT_SERVICE_PORT: 3000,
@@ -23,7 +24,8 @@ module.exports = {
   DEFAULT_COMMAND,
   USER_ARGV_INDEX,
   Port,
-  FILE_NAME,
+  MOCKS_FILE_NAME,
+  PUBLIC_DIR,
   ExitCode,
   HttpCode
 };
