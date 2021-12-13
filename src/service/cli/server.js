@@ -3,7 +3,7 @@
 const chalk = require(`chalk`);
 const http = require(`http`);
 const fs = require(`fs`).promises;
-const {DEFAULT_PORT, FILE_NAME, HttpCode} = require(`../../constants`);
+const {Port, FILE_NAME, HttpCode} = require(`../../constants`);
 
 const sendResponse = (res, statusCode, message) => {
   const template = `
@@ -46,8 +46,8 @@ const onClientConnect = async (req, res) => {
 module.exports = {
   name: `--server`,
   run(args) {
-    const [customPort] = args || DEFAULT_PORT;
-    const port = Number.parseInt(customPort, 10) || DEFAULT_PORT;
+    const [customPort] = args || Port.DEFAULT_SERVICE_PORT;
+    const port = Number.parseInt(customPort, 10) || Port.DEFAULT_SERVICE_PORT;
 
     http.createServer(onClientConnect)
       .listen(port)
