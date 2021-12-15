@@ -7,7 +7,7 @@ const {
   getRandomInt,
   shuffle,
 } = require(`../../utils`);
-const {ExitCode, FILE_NAME} = require(`../../constants`);
+const {ExitCode, MOCKS_FILE_NAME} = require(`../../constants`);
 
 const FilePath = {
   SENTENCES: `./data/sentences.txt`,
@@ -69,7 +69,7 @@ module.exports = {
     const content = JSON.stringify(generatePosts(countPosts, ...data));
 
     try {
-      await fs.writeFile(FILE_NAME, content);
+      await fs.writeFile(MOCKS_FILE_NAME, content);
       console.info(chalk.green(`Operation success. File created.`));
       process.exit(ExitCode.SUCCESS);
     } catch (e) {

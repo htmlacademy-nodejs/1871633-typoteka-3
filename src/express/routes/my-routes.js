@@ -4,8 +4,8 @@ const {Router} = require(`express`);
 const myRoutes = new Router();
 
 // Мои публикации;
-myRoutes.get(`/`, (req, res) => res.send(`/my`));
+myRoutes.get(`/`, (req, res) => res.render(`pages/admin/my`));
 // Комментарии к публикациям;
-myRoutes.get(`/comments`, (req, res) => res.send(`/my/comments`));
+myRoutes.get(`/comments`, (req, res) => res.render(`pages/admin/comments`));
 
 module.exports = myRoutes;
